@@ -69,9 +69,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
         AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
+        int xPos = (GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2;
+        int yPos = (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2;
+
         HWND hwnd = CreateWindowExW(0, L"GameDRWindowClass", g_szAppName, WS_OVERLAPPEDWINDOW,
         //HWND hwnd = CreateWindowExW(WS_EX_TOPMOST, L"GameDRWindowClass", g_szAppName, WS_POPUP,
-            CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance,
+            xPos, yPos, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance,
             nullptr);
         // TODO: Change to CreateWindowExW(WS_EX_TOPMOST, L"GameDRWindowClass", g_szAppName, WS_POPUP,
         // to default to fullscreen.
