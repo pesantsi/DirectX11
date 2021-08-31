@@ -52,7 +52,7 @@ namespace
     }
 }
 
-namespace DX
+namespace CoreProject
 {
     // Constructor for DeviceResources.
     DeviceResources::DeviceResources(
@@ -380,6 +380,17 @@ namespace DX
             static_cast<float>(backBufferWidth),
             static_cast<float>(backBufferHeight)
         );
+
+        m_d3dContext->RSSetViewports(1, &m_screenViewport);
+
+        ///////////////**************new**************////////////////////
+        D3D11_RASTERIZER_DESC wfdesc = {};
+        wfdesc.FillMode = D3D11_FILL_WIREFRAME;
+        wfdesc.CullMode = D3D11_CULL_NONE;
+        ThrowIfFailed(m_d3dDevice->CreateRasterizerState(&wfdesc, &m_wireFrame));
+
+       // m_d3dContext->RSSetState(m_wireFrame.Get());
+        ///////////////**************new**************////////////////////
     }
 
     // This method is called when the Win32 window is created (or re-created).

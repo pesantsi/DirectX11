@@ -4,7 +4,9 @@
 
 #pragma once
 
-namespace DX
+#include "pch.h"
+
+namespace CoreProject
 {
     // Provides an interface for an application that owns DeviceResources to be notified of the device being lost or created.
     interface IDeviceNotify
@@ -99,6 +101,7 @@ namespace DX
         Microsoft::WRL::ComPtr<ID3D11Texture2D>         m_depthStencil;
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView>  m_d3dRenderTargetView;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView>  m_d3dDepthStencilView;
+        Microsoft::WRL::ComPtr<ID3D11RasterizerState>   m_wireFrame;
         D3D11_VIEWPORT                                  m_screenViewport;
 
         // Direct3D properties.

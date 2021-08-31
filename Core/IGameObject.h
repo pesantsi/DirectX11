@@ -9,7 +9,7 @@ namespace CoreProject
 {
     extern bool gIsSupending;
 
-    interface IGameApp
+    interface IGameObject
     {
     public:
         // This function can be used to initialize application state and will run after essential
@@ -18,9 +18,6 @@ namespace CoreProject
         virtual void CreateDeviceDependentResources(const std::shared_ptr<CoreProject::DeviceResources>& deviceResources) = 0;
         virtual void CreateWindowSizeDependentResources() = 0;
         virtual void ReleaseDeviceDependentResources() = 0;
-
-        // Decide if you want the app to exit.  By default, app continues until the 'ESC' key is pressed.
-        virtual bool IsDone(){ return false;}
 
         // The update method will be invoked once per frame.  Both state updating and scene
         // rendering should be handled by this method.

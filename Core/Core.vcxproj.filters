@@ -10,6 +10,13 @@
     <ClInclude Include="DeviceResources.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="FileUtility.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="CommandLineArg.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -17,10 +24,19 @@
     <ClCompile Include="DeviceResources.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="FileUtility.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandLineArg.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
       <UniqueIdentifier>{3f5cd92e-4673-4a57-873b-a0c2a4a12bde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{7e674c5c-754e-4daf-b606-cca1891f09ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

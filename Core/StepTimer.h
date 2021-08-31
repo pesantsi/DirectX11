@@ -4,12 +4,14 @@
 
 #pragma once
 
+#include "pch.h"
+
 #include <cmath>
 #include <cstdint>
 #include <exception>
 
 
-namespace DX
+namespace CoreProject
 {
     // Helper class for animation and simulation timing.
     class StepTimer

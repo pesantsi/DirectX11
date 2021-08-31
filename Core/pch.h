@@ -6,10 +6,13 @@
 
 #pragma once
 
+#pragma warning(disable:4201) // nonstandard extension used : nameless struct/union
+#pragma warning(disable:4238) // nonstandard extension used : class rvalue used as lvalue
+#pragma warning(disable:4239) // A non-const reference may only be bound to an lvalue; assignment operator takes a reference to non-const
+#pragma warning(disable:4324) // structure was padded due to __declspec(align())
+
 #include <winsdkver.h>
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x0601
-#endif
+#define _WIN32_WINNT 0x0A00
 #include <sdkddkver.h>
 
 // Use the C++ standard templated min/max
@@ -30,12 +33,16 @@
 #define NOHELP
 
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
 
+#include <Windows.h>
 #include <wrl/client.h>
+#include <wrl/event.h>
 
 #include <d3d11_1.h>
 #include <dxgi1_6.h>
+#ifdef _DEBUG
+    #include <dxgidebug.h>
+#endif
 
 #include <DirectXMath.h>
 #include <DirectXColors.h>
@@ -44,17 +51,20 @@
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
+#include <cstdarg>
 #include <cwchar>
+#include <cwctype>
 #include <exception>
 #include <iterator>
 #include <memory>
+#include <string>
+#include <vector>
+
 #include <stdexcept>
+#include <ppltasks.h>
+#include <functional>
 
-#ifdef _DEBUG
-#include <dxgidebug.h>
-#endif
-
-namespace DX
+namespace CoreProject
 {
     // Helper class for COM exceptions
     class com_exception : public std::exception

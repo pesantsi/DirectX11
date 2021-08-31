@@ -6,15 +6,15 @@
 #include "DeviceResources.h"
 #include "StepTimer.h"
 
-namespace GameCore
+namespace CoreProject
 {
     // A basic game implementation that creates a D3D11 device and
     // provides a game loop.
-    class GameCore final : public DX::IDeviceNotify
+    class GameCore final : public CoreProject::IDeviceNotify
     {
     public:
 
-        GameCore() noexcept(false);
+        GameCore(IGameApp& app) noexcept(false);
         ~GameCore() = default;
 
         GameCore(GameCore&&) = default;
@@ -46,7 +46,7 @@ namespace GameCore
 
     private:
 
-        void Update(DX::StepTimer const& timer);
+        void Update(CoreProject::StepTimer const& timer);
         void Render();
 
         void Clear();
@@ -55,21 +55,21 @@ namespace GameCore
         void CreateWindowSizeDependentResources();
 
         // Device resources.
-        std::unique_ptr<DX::DeviceResources>    m_deviceResources;
+        std::shared_ptr<CoreProject::DeviceResources> m_deviceResources;
 
         // Rendering loop timer.
-        DX::StepTimer                           m_timer;
+        CoreProject::StepTimer m_timer;
+        IGameApp* m_gameApp;
     };
 }
 
-namespace GameCore
+namespace CoreProject
 {
-    int RunApplication(IGameApp& app, const wchar_t* className, HINSTANCE hInst, int nCmdShow);
+    int RunApplication(IGameApp& app, const wchar_t* className, HINSTANCE hInstance, int nCmdShow);
 }
 
 #define CREATE_APPLICATION( app_class ) \
     int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ LPWSTR /*lpCmdLine*/, _In_ int nCmdShow) \
     { \
-        return GameCore::RunApplication( app_class(), L#app_class, hInstance, nCmdShow ); \
+        return CoreProject::RunApplication( app_class(), L#app_class, hInstance, nCmdShow ); \
     }
-
