@@ -5,8 +5,6 @@
 #include <..\Core\FileUtility.h>
 #include <..\Core\pch.h>
 
-// #include "..\Common\DirectXHelper.h"
-
 using namespace GameProject;
 
 using namespace DirectX;
@@ -138,6 +136,41 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr
         )
     );
 
+    // Each vertex is one instance of the VertexPositionColor struct.
+    UINT stride = sizeof(VertexPositionColor);
+    UINT offset = 0;
+    m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(
+        0,
+        1,
+        m_vertexBuffer.GetAddressOf(),
+        &stride,
+        &offset
+    );
+
+    m_deviceResources->GetD3DDeviceContext()->IASetIndexBuffer(
+        m_indexBuffer.Get(),
+        DXGI_FORMAT_R16_UINT, // Each index is one 16-bit unsigned integer (short).
+        0
+    );
+
+    m_deviceResources->GetD3DDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    m_deviceResources->GetD3DDeviceContext()->IASetInputLayout(m_inputLayout.Get());
+
+    // Attach our vertex shader.
+    m_deviceResources->GetD3DDeviceContext()->VSSetShader(
+        m_vertexShader.Get(),
+        nullptr,
+        0
+    );
+
+    // Attach our pixel shader.
+    m_deviceResources->GetD3DDeviceContext()->PSSetShader(
+        m_pixelShader.Get(),
+        nullptr,
+        0
+    );
+
     // Once the cube is loaded, the object is ready to be rendered.
     m_loadingComplete = true;
 }
@@ -193,6 +226,8 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
     static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
     XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
+
+   // XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixIdentity());
 }
 
 // Called once per frame, rotates the cube and calculates the model and view matrices.
@@ -247,67 +282,46 @@ void Sample3DSceneRenderer::RenderScene()
 
     auto context = m_deviceResources->GetD3DDeviceContext();
 
-    // Prepare the constant buffer to send it to the graphics device.
-    context->UpdateSubresource1(
-        m_constantBuffer.Get(),
-        0,
-        NULL,
-        &m_constantBufferData,
-        0,
-        0,
-        0
-    );
+    for (int x = 0; x < 1; x++)
+    {
+        for (int y = 0; y < 1; y++)
+        {
+            for (int z = 0; z < 1; z++)
+            {
+                //XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixTranslation(x, y, z)));
 
-    // Each vertex is one instance of the VertexPositionColor struct.
-    UINT stride = sizeof(VertexPositionColor);
-    UINT offset = 0;
-    context->IASetVertexBuffers(
-        0,
-        1,
-        m_vertexBuffer.GetAddressOf(),
-        &stride,
-        &offset
-    );
+                // Prepare the constant buffer to send it to the graphics device.
+                context->UpdateSubresource1(
+                    m_constantBuffer.Get(),
+                    0,
+                    NULL,
+                    &m_constantBufferData,
+                    0,
+                    0,
+                    0
+                );
 
-    context->IASetIndexBuffer(
-        m_indexBuffer.Get(),
-        DXGI_FORMAT_R16_UINT, // Each index is one 16-bit unsigned integer (short).
-        0
-    );
+                // Send the constant buffer to the graphics device.
+                context->VSSetConstantBuffers1(
+                    0,
+                    1,
+                    m_constantBuffer.GetAddressOf(),
+                    nullptr,
+                    nullptr
+                );
 
-    context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+                // Draw the objects.
+                context->DrawIndexed(
+                    m_indexCount,
+                    0,
+                    0
+                );
+                //pRenderer->TranslateWorldMatrix(x, y, z); // Render m_pBlocks[x][y][z]
+            }
+        }
+    }
 
-    context->IASetInputLayout(m_inputLayout.Get());
 
-    // Attach our vertex shader.
-    context->VSSetShader(
-        m_vertexShader.Get(),
-        nullptr,
-        0
-    );
-
-    // Send the constant buffer to the graphics device.
-    context->VSSetConstantBuffers1(
-        0,
-        1,
-        m_constantBuffer.GetAddressOf(),
-        nullptr,
-        nullptr
-    );
-
-    // Attach our pixel shader.
-    context->PSSetShader(
-        m_pixelShader.Get(),
-        nullptr,
-        0
-    );
-
-    // Draw the objects.
-    context->DrawIndexed(
-        m_indexCount,
-        0,
-        0
-    );
 }
 
 void Sample3DSceneRenderer::ReleaseDeviceDependentResources()

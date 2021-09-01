@@ -383,14 +383,12 @@ namespace CoreProject
 
         m_d3dContext->RSSetViewports(1, &m_screenViewport);
 
-        ///////////////**************new**************////////////////////
-        D3D11_RASTERIZER_DESC wfdesc = {};
-        wfdesc.FillMode = D3D11_FILL_WIREFRAME;
-        wfdesc.CullMode = D3D11_CULL_NONE;
+        CD3D11_RASTERIZER_DESC wfdesc = {};
+        wfdesc.FillMode = D3D11_FILL_SOLID; //D3D11_FILL_WIREFRAME;
+        wfdesc.CullMode = D3D11_CULL_BACK; //D3D11_CULL_NONE;
         ThrowIfFailed(m_d3dDevice->CreateRasterizerState(&wfdesc, &m_wireFrame));
 
-       // m_d3dContext->RSSetState(m_wireFrame.Get());
-        ///////////////**************new**************////////////////////
+        m_d3dContext->RSSetState(m_wireFrame.Get());
     }
 
     // This method is called when the Win32 window is created (or re-created).

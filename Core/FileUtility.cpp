@@ -27,44 +27,6 @@ namespace CoreProject
         return byteArray;
     }
 
-    void* FileUtility::LoadShaderFile(const std::wstring& fileName, long* len)
-    {
-        std::wstring fullFileName = m_root + fileName;
-
-        struct _stat64 fileStat;
-        int fileExists = _wstat64(fullFileName.c_str(), &fileStat);
-        if (fileExists == -1)
-            return NULL;
-
-        std::ifstream file(fullFileName, std::ios::in | std::ios::binary);
-        if (!file)
-            return NULL;
-
-//         file.seekg()
-// 
-//         char name[256];
-//         sprintf(name, "%s.%s", fname, ext);
-//         G_FILE* f = g_fopen(name, "r");
-//         if (f) {
-//             g_fseek(f, 0, SEEK_END);
-//             long sz = g_ftell(f);
-            if (len)
-                *len = fileStat.st_size;
-            void* fdata = malloc(fileStat.st_size + 1);
-            ((char*)fdata)[fileStat.st_size] = 0; //NUL TERMINATE
-//             g_fseek(f, 0, SEEK_SET);
-//             g_fread(fdata, 1, sz, f);
-//             g_fclose(f);
-
-            file.read((char*)fdata, fileStat.st_size);
-            file.close();
-
-            return fdata;
-        //}
-       // return NULL;
-    }
-
-
     void FileUtility::SetupRoot(LPWSTR* argv)
     {
         std::wstring filename(*argv);

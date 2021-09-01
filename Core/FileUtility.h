@@ -14,7 +14,6 @@ namespace CoreProject
         static void SetupRoot(LPWSTR* argv);
         static const std::wstring& GetRoot();
         static ByteArray ReadFileSync(const std::wstring& fileName);
-        static void* LoadShaderFile(const std::wstring& fileName, long* len);
 
     private:
         static std::wstring m_root;
