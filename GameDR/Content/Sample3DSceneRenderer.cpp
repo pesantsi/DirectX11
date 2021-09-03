@@ -1,9 +1,9 @@
-﻿#include "pch.h"
+﻿#include <pch.h>
 
-#include "Sample3DSceneRenderer.h"
-
-#include <..\Core\FileUtility.h>
-#include <..\Core\pch.h>
+#include <FileUtility.h>
+#include <pch.h>
+#include <Content/Sample3DSceneRenderer.h>
+#include <FreeLookCameraController.h>
 
 using namespace GameProject;
 
@@ -17,8 +17,10 @@ Sample3DSceneRenderer::Sample3DSceneRenderer() :
     m_indexCount(0),
     m_tracking(false),
     m_deviceResources(nullptr),
-    m_constantBufferData()
+    m_constantBufferData(),
+    m_CameraController(nullptr)
 {
+
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr<CoreProject::DeviceResources>& deviceResources)
@@ -225,7 +227,12 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
     static const XMVECTORF32 at = { 0.0f, -0.1f, 0.0f, 0.0f };
     static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
-    XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
+    m_Camera.SetEyeAtUp(eye, at, up);
+    XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(m_Camera.GetViewMatrix()));
+
+    m_CameraController = std::make_shared<CoreProject::FreeLookCameraController>(m_Camera);
+
+   // XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
 
    // XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixIdentity());
 }
@@ -233,15 +240,18 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 // Called once per frame, rotates the cube and calculates the model and view matrices.
 void Sample3DSceneRenderer::Update(CoreProject::StepTimer const& timer)
 {
-    if (!m_tracking)
-    {
-        // Convert degrees to radians, then convert seconds to rotation angle
-        float radiansPerSecond = XMConvertToRadians(m_degreesPerSecond);
-        double totalRotation = timer.GetTotalSeconds() * radiansPerSecond;
-        float radians = static_cast<float>(fmod(totalRotation, XM_2PI));
+//     if (!m_tracking)
+//     {
+//         // Convert degrees to radians, then convert seconds to rotation angle
+//         float radiansPerSecond = XMConvertToRadians(m_degreesPerSecond);
+//         double totalRotation = timer.GetTotalSeconds() * radiansPerSecond;
+//         float radians = static_cast<float>(fmod(totalRotation, XM_2PI));
+// 
+//         Rotate(radians);
+//     }
 
-        Rotate(radians);
-    }
+   m_CameraController->Update(timer);
+   XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(m_Camera.GetViewMatrix()));
 }
 
 // Rotate the 3D cube model a set amount of radians.
@@ -282,13 +292,13 @@ void Sample3DSceneRenderer::RenderScene()
 
     auto context = m_deviceResources->GetD3DDeviceContext();
 
-    for (int x = 0; x < 1; x++)
+    for (int x = 0; x < 32; x++)
     {
-        for (int y = 0; y < 1; y++)
+        for (int y = 0; y < 32; y++)
         {
-            for (int z = 0; z < 1; z++)
+            for (int z = 0; z < 32; z++)
             {
-                //XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixTranslation(x, y, z)));
+                XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixTranslation(x, y, z)));
 
                 // Prepare the constant buffer to send it to the graphics device.
                 context->UpdateSubresource1(

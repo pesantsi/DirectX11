@@ -1,10 +1,11 @@
 #pragma once
 
-#include "pch.h"
+#include <pch.h>
 
-#include "IGameApp.h"
-#include "DeviceResources.h"
-#include "StepTimer.h"
+#include <DeviceResources.h>
+#include <GameInput.h>
+#include <IGameApp.h>
+#include <StepTimer.h>
 
 namespace CoreProject
 {
@@ -25,6 +26,7 @@ namespace CoreProject
 
         // Initialization and management
         void Initialize(HWND window, int width, int height);
+        void Shutdown();
 
         // Basic game loop
         void Tick();

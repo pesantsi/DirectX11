@@ -1,9 +1,9 @@
-#include "pch.h"
+#include <pch.h>
 
-#include "GameCore.h"
+#include <GameCore.h>
 
-#include "CommandLineArg.h"
-#include "FileUtility.h"
+#include <CommandLineArg.h>
+#include <FileUtility.h>
 #include <shellapi.h>
 
 namespace CoreProject
@@ -17,7 +17,7 @@ namespace CoreProject
     GameCore::GameCore(IGameApp& app) noexcept(false)
     {
         m_gameApp = &app;
-        m_deviceResources = std::make_shared<CoreProject::DeviceResources>();
+        m_deviceResources = std::make_shared<DeviceResources>();
         m_deviceResources->RegisterDeviceNotify(this);
 
         int argc = 0;
@@ -38,12 +38,22 @@ namespace CoreProject
         m_deviceResources->CreateWindowSizeDependentResources();
         CreateWindowSizeDependentResources();
 
+        GameInput::getInstance().Initialize(window);
+
         // TODO: Change the timer settings if you want something other than the default variable timestep mode.
         // e.g. for 60 FPS fixed timestep update logic, call:
         /*
         m_timer.SetFixedTimeStep(true);
         m_timer.SetTargetElapsedSeconds(1.0 / 60);
         */
+    }
+
+    void GameCore::Shutdown()
+    {
+        m_gameApp->ReleaseDeviceDependentResources();
+
+        GameInput::getInstance().Shutdown();
+        m_deviceResources->Shutdown();
     }
 
 #pragma region Frame Update
@@ -61,7 +71,7 @@ namespace CoreProject
     // Updates the world.
     void GameCore::Update(CoreProject::StepTimer const& timer)
     {
-        //float elapsedTime = float(timer.GetElapsedSeconds());
+        GameInput::getInstance().Update(timer);
 
         // TODO: Add your game logic here.
         m_gameApp->Update(timer);
@@ -159,8 +169,8 @@ namespace CoreProject
     void GameCore::GetDefaultSize(int& width, int& height) const noexcept
     {
         // TODO: Change to desired default window size (note minimum size is 320x200).
-        width = 800;
-        height = 600;
+        width = 1280;
+        height = 720;
     }
 #pragma endregion
 
@@ -283,7 +293,7 @@ namespace CoreProject
             }
         }
 
-        g_gameCore->OnDeviceLost();
+        g_gameCore->Shutdown();
         g_gameCore.reset();
 
         CoUninitialize();

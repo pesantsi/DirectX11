@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "pch.h"
+#include <pch.h>
 
 namespace CoreProject
 {
@@ -46,6 +46,7 @@ namespace CoreProject
         void HandleDeviceLost();
         void RegisterDeviceNotify(IDeviceNotify* deviceNotify) noexcept { m_deviceNotify = deviceNotify; }
         void Present();
+        void Shutdown();
 
         // Device Accessors.
         RECT GetOutputSize() const noexcept { return m_outputSize; }

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "pch.h"
+#include <pch.h>
 
-#include "DeviceResources.h"
-#include "StepTimer.h"
+#include <DeviceResources.h>
+#include <StepTimer.h>
 
 namespace CoreProject
 {

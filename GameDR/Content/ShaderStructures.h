@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "pch.h"
+#include <pch.h>
 
 using namespace DirectX;
 

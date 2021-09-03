@@ -17,6 +17,19 @@
     <ClInclude Include="CommandLineArg.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="GameInput.h" />
+    <ClInclude Include="CameraController.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeLookCameraController.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -30,6 +43,16 @@
     <ClCompile Include="CommandLineArg.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="GameInput.cpp" />
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="FreeLookCameraController.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -37,6 +60,12 @@
     </Filter>
     <Filter Include="Helpers">
       <UniqueIdentifier>{7e674c5c-754e-4daf-b606-cca1891f09ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{b7bd0384-cbd6-4caf-aa7b-b6c0adda5134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{ac87ab6f-539d-47c8-a4e5-903c26ddd89e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

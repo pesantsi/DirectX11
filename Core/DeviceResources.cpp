@@ -3,8 +3,8 @@
 //                       (requires DirectX 11.1 Runtime)
 //
 
-#include "pch.h"
-#include "DeviceResources.h"
+#include <pch.h>
+#include <DeviceResources.h>
 
 using namespace DirectX;
 
@@ -670,5 +670,22 @@ namespace CoreProject
                 ThrowIfFailed(swapChain3->SetColorSpace1(colorSpace));
             }
         }
+    }
+
+    void DeviceResources::Shutdown()
+    {
+        // Direct3D objects.
+        m_dxgiFactory.Reset();
+        m_d3dDevice.Reset();
+        m_d3dContext.Reset();
+        m_swapChain.Reset();
+        m_d3dAnnotation.Reset();
+
+        // Direct3D rendering objects. Required for 3D.
+        m_renderTarget.Reset();
+        m_depthStencil.Reset();
+        m_d3dRenderTargetView.Reset();
+        m_d3dDepthStencilView.Reset();
+        m_wireFrame.Reset();
     }
 }

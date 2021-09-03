@@ -1,8 +1,7 @@
- #include "pch.h"
+#include <pch.h>
 
-#include "GameDR.h"
-
-#include "Content/Sample3DSceneRenderer.h"
+#include <Content/Sample3DSceneRenderer.h>
+#include <GameDR.h>
 
 namespace GameProject
 {

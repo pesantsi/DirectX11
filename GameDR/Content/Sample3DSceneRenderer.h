@@ -1,6 +1,8 @@
 ﻿#pragma once
 
-#include <Content\ShaderStructures.h>
+#include <Camera.h>
+#include <FreeLookCameraController.h>
+#include <Content/ShaderStructures.h>
 #include <DeviceResources.h>
 #include <IGameObject.h>
 #include <StepTimer.h>
@@ -46,6 +48,9 @@ namespace GameProject
         bool m_loadingComplete;
         float m_degreesPerSecond;
         bool m_tracking;
+
+        CoreProject::Camera m_Camera;
+        std::shared_ptr<CoreProject::FreeLookCameraController> m_CameraController;
     };
 }
 

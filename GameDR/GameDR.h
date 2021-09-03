@@ -1,8 +1,7 @@
 #pragma once
 
-#include <GameCore.h>
-
 #include <Content/Sample3DSceneRenderer.h>
+#include <GameCore.h>
 
 namespace GameProject
 {
