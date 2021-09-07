@@ -30,6 +30,9 @@
     <ClInclude Include="Block.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Chunk.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -51,6 +54,9 @@
       <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>

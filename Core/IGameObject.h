@@ -7,9 +7,7 @@
 
 namespace CoreProject
 {
-    extern bool gIsSupending;
-
-    interface IGameObject
+    class IGameObject
     {
     public:
         // This function can be used to initialize application state and will run after essential

@@ -267,7 +267,7 @@ namespace CoreProject
             if (!hwnd)
                 return 1;
 
-            ShowWindow(hwnd, nCmdShow);
+            ShowWindow(hwnd, SW_SHOWMAXIMIZED);
             //ShowWindow(hwnd, SW_SHOWMAXIMIZED);
              // TODO: Change nCmdShow to SW_SHOWMAXIMIZED to default to fullscreen.
 
