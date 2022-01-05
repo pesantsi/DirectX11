@@ -1,12 +1,12 @@
 #pragma once
 
 #include <pch.h>
-
+#include <IGameObject.h>
 #include <StepTimer.h>
 
 namespace CoreProject
 {
-    class GameInput
+    class GameInput : IUpdatableObject
     {
     public:
 
@@ -166,7 +166,7 @@ namespace CoreProject
             kNumAnalogInputs
         };
 
-        static GameInput& getInstance()
+        static GameInput& GetInstance()
         {
             // Guaranteed to be destroyed.
              // Instantiated on first use.
@@ -178,7 +178,7 @@ namespace CoreProject
         void operator=(GameInput const&) = delete;
 
         void Initialize(HWND hwnd);
-        void Update(StepTimer const& timer);
+        void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer) override;
         void Shutdown();
 
         bool IsPressed(DigitalInput di)

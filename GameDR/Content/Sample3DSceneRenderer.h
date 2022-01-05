@@ -14,11 +14,21 @@ namespace GameProject
     {
     public:
         Sample3DSceneRenderer();
+
+        // This function can be used to initialize application state and will run after essential
+        // hardware resources are allocated.  Some state that does not depend on these resources
+        // should still be initialized in the constructor such as pointers and flags.
         void CreateDeviceDependentResources(const std::shared_ptr<CoreProject::DeviceResources>& deviceResources) override;
         void CreateWindowSizeDependentResources() override;
         void ReleaseDeviceDependentResources() override;
-        void Update(CoreProject::StepTimer const& timer) override;
-        void RenderScene() override;
+
+        // The update method will be invoked once per frame.  Both state updating and scene
+        // rendering should be handled by this method.
+        void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer) override;
+
+        // Official rendering pass
+        void RenderScene(ID3D11DeviceContext1* deviceContext) override;
+
         void StartTracking();
         void TrackingUpdate(float positionX);
         void StopTracking();
@@ -39,9 +49,10 @@ namespace GameProject
         Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
         Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
         Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantBuffer;
+        Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_wireFrame;
 
         // System resources for cube geometry.
-        ConstantBuffer m_constantBufferData;
+        CoreProject::ConstantBuffer m_constantBufferData;
         uint32_t m_indexCount;
 
         // Variables used with the rendering loop.

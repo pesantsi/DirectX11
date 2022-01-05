@@ -1,9 +1,9 @@
 ﻿#include <pch.h>
 
 #include <FileUtility.h>
-#include <pch.h>
 #include <Content/Sample3DSceneRenderer.h>
 #include <FreeLookCameraController.h>
+#include <Block.h>
 
 using namespace GameProject;
 
@@ -64,7 +64,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr
             &m_pixelShader
         ));
 
-    CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
+    CD3D11_BUFFER_DESC constantBufferDesc(sizeof(CoreProject::ConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
     FAILED(
         m_deviceResources->GetD3DDevice()->CreateBuffer(
             &constantBufferDesc,
@@ -74,23 +74,11 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr
 
     // Once both shaders are loaded, create the mesh.
     // Load mesh vertices. Each vertex has a position and a color.
-    static const VertexPositionColor cubeVertices[] =
-    {
-        {XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT3(0.0f, 0.0f, 0.0f)},
-        {XMFLOAT3(-0.5f, -0.5f,  0.5f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
-        {XMFLOAT3(-0.5f,  0.5f, -0.5f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
-        {XMFLOAT3(-0.5f,  0.5f,  0.5f), XMFLOAT3(0.0f, 1.0f, 1.0f)},
-        {XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
-        {XMFLOAT3(0.5f, -0.5f,  0.5f), XMFLOAT3(1.0f, 0.0f, 1.0f)},
-        {XMFLOAT3(0.5f,  0.5f, -0.5f), XMFLOAT3(1.0f, 1.0f, 0.0f)},
-        {XMFLOAT3(0.5f,  0.5f,  0.5f), XMFLOAT3(1.0f, 1.0f, 1.0f)},
-    };
-
     D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
-    vertexBufferData.pSysMem = cubeVertices;
+    vertexBufferData.pSysMem = CoreProject::Block::CubeVertices;
     vertexBufferData.SysMemPitch = 0;
     vertexBufferData.SysMemSlicePitch = 0;
-    CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(cubeVertices), D3D11_BIND_VERTEX_BUFFER);
+    CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(CoreProject::Block::CubeVertices), D3D11_BIND_VERTEX_BUFFER);
     FAILED(
         m_deviceResources->GetD3DDevice()->CreateBuffer(
             &vertexBufferDesc,
@@ -98,39 +86,13 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr
             &m_vertexBuffer
         ));
 
-    // Load mesh indices. Each trio of indices represents
-    // a triangle to be rendered on the screen.
-    // For example: 0,2,1 means that the vertices with indexes
-    // 0, 2 and 1 from the vertex buffer compose the 
-    // first triangle of this mesh.
-    static const unsigned short cubeIndices[] =
-    {
-        0,2,1, // -x
-        1,2,3,
-
-        4,5,6, // +x
-        5,7,6,
-
-        0,1,5, // -y
-        0,5,4,
-
-        2,6,7, // +y
-        2,7,3,
-
-        0,4,6, // -z
-        0,6,2,
-
-        1,3,7, // +z
-        1,7,5,
-    };
-
-    m_indexCount = ARRAYSIZE(cubeIndices);
+    m_indexCount = ARRAYSIZE(CoreProject::Block::CubeIndices);
 
     D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
-    indexBufferData.pSysMem = cubeIndices;
+    indexBufferData.pSysMem = CoreProject::Block::CubeIndices;
     indexBufferData.SysMemPitch = 0;
     indexBufferData.SysMemSlicePitch = 0;
-    CD3D11_BUFFER_DESC indexBufferDesc(sizeof(cubeIndices), D3D11_BIND_INDEX_BUFFER);
+    CD3D11_BUFFER_DESC indexBufferDesc(sizeof(CoreProject::Block::CubeIndices), D3D11_BIND_INDEX_BUFFER);
     FAILED(
         m_deviceResources->GetD3DDevice()->CreateBuffer(
             &indexBufferDesc,
@@ -140,7 +102,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr
     );
 
     // Each vertex is one instance of the VertexPositionColor struct.
-    UINT stride = sizeof(VertexPositionColor);
+    UINT stride = sizeof(CoreProject::VertexPositionColor);
     UINT offset = 0;
     m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(
         0,
@@ -236,12 +198,19 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
     // XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
 
     XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixIdentity());
+
+//     D3D11_RASTERIZER_DESC wfdesc;
+//     ZeroMemory(&wfdesc, sizeof(D3D11_RASTERIZER_DESC));
+//     wfdesc.FillMode = D3D11_FILL_WIREFRAME;
+//     wfdesc.CullMode = D3D11_CULL_NONE;
+//     m_deviceResources->GetD3DDevice()->CreateRasterizerState(&wfdesc, &m_wireFrame);
+// 
+//     m_deviceResources->GetD3DDeviceContext()->RSSetState(m_wireFrame.Get());
 }
 
 // Called once per frame, rotates the cube and calculates the model and view matrices.
-void Sample3DSceneRenderer::Update(CoreProject::StepTimer const& timer)
-{
-    //if (!m_tracking)
+void Sample3DSceneRenderer::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
+{ 
     //{
     //    // Convert degrees to radians, then convert seconds to rotation angle
     //    float radiansPerSecond = XMConvertToRadians(m_degreesPerSecond);
@@ -251,7 +220,7 @@ void Sample3DSceneRenderer::Update(CoreProject::StepTimer const& timer)
     //    Rotate(radians);
     //}
 
-    m_CameraController->Update(timer);
+    m_CameraController->Update(stepTimer);
     XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(m_Camera.GetViewMatrix()));
 }
 
@@ -283,15 +252,13 @@ void Sample3DSceneRenderer::StopTracking()
 }
 
 // Renders one frame using the vertex and pixel shaders.
-void Sample3DSceneRenderer::RenderScene()
+void Sample3DSceneRenderer::RenderScene(ID3D11DeviceContext1* deviceContext)
 {
     // Loading is asynchronous. Only draw geometry after it's loaded.
     if (!m_loadingComplete)
     {
         return;
     }
-
-    auto context = m_deviceResources->GetD3DDeviceContext();
 
     for (float x = 0; x < 32; x++)
     {
@@ -302,7 +269,7 @@ void Sample3DSceneRenderer::RenderScene()
                 XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixTranslation(x, y, z)));
 
                 // Prepare the constant buffer to send it to the graphics device.
-                context->UpdateSubresource1(
+                deviceContext->UpdateSubresource1(
                     m_constantBuffer.Get(),
                     0,
                     NULL,
@@ -313,7 +280,7 @@ void Sample3DSceneRenderer::RenderScene()
                 );
 
                 // Send the constant buffer to the graphics device.
-                context->VSSetConstantBuffers1(
+                deviceContext->VSSetConstantBuffers1(
                     0,
                     1,
                     m_constantBuffer.GetAddressOf(),
@@ -322,7 +289,7 @@ void Sample3DSceneRenderer::RenderScene()
                 );
 
                 // Draw the objects.
-                context->DrawIndexed(
+                deviceContext->DrawIndexed(
                     m_indexCount,
                     0,
                     0
@@ -344,4 +311,5 @@ void Sample3DSceneRenderer::ReleaseDeviceDependentResources()
     m_constantBuffer.Reset();
     m_vertexBuffer.Reset();
     m_indexBuffer.Reset();
+    m_wireFrame.Reset();
 }

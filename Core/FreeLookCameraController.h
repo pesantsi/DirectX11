@@ -10,7 +10,7 @@ namespace CoreProject
     {
     public:
         FreeLookCameraController(Camera& camera);
-        void Update(StepTimer const& timer) override;
+        void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer) override;
 
         void UpdateCamera();
     private:

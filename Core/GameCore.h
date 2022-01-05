@@ -48,7 +48,7 @@ namespace CoreProject
 
     private:
 
-        void Update(CoreProject::StepTimer const& timer);
+        void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer);
         void Render();
 
         void Clear();
@@ -60,7 +60,7 @@ namespace CoreProject
         std::shared_ptr<CoreProject::DeviceResources> m_deviceResources;
 
         // Rendering loop timer.
-        CoreProject::StepTimer m_timer;
+        std::shared_ptr<CoreProject::StepTimer> m_timer;
         IGameApp* m_gameApp;
     };
 }

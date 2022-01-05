@@ -52,10 +52,10 @@ namespace CoreProject
         RECT GetOutputSize() const noexcept { return m_outputSize; }
 
         // Direct3D Accessors.
-        auto                    GetD3DDevice() const noexcept           { return m_d3dDevice.Get(); }
-        auto                    GetD3DDeviceContext() const noexcept    { return m_d3dContext.Get(); }
-        auto                    GetSwapChain() const noexcept           { return m_swapChain.Get(); }
-        auto                    GetDXGIFactory() const noexcept         { return m_dxgiFactory.Get(); }
+        ID3D11Device1*          GetD3DDevice() const noexcept           { return m_d3dDevice.Get(); }
+        ID3D11DeviceContext1*   GetD3DDeviceContext() const noexcept    { return m_d3dContext.Get(); }
+        IDXGISwapChain1*        GetSwapChain() const noexcept           { return m_swapChain.Get(); }
+        IDXGIFactory2*          GetDXGIFactory() const noexcept         { return m_dxgiFactory.Get(); }
         HWND                    GetWindow() const noexcept              { return m_window; }
         D3D_FEATURE_LEVEL       GetDeviceFeatureLevel() const noexcept  { return m_d3dFeatureLevel; }
         ID3D11Texture2D*        GetRenderTarget() const noexcept        { return m_renderTarget.Get(); }

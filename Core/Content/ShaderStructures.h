@@ -4,7 +4,7 @@
 
 using namespace DirectX;
 
-namespace GameProject
+namespace CoreProject
 {
     // Constant buffer used to send MVP matrices to the vertex shader.
     struct ConstantBuffer

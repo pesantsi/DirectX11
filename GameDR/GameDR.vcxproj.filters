@@ -12,9 +12,6 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameDR.h" />
-    <ClInclude Include="Content\ShaderStructures.h">
-      <Filter>Content</Filter>
-    </ClInclude>
     <ClInclude Include="Content\Sample3DSceneRenderer.h">
       <Filter>Content</Filter>
     </ClInclude>
@@ -40,13 +37,5 @@
     <ResourceCompile Include="resource.rc">
       <Filter>Assets</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Content\SamplePixelShader.hlsl">
-      <Filter>Content</Filter>
-    </FxCompile>
-    <FxCompile Include="Content\SampleVertexShader.hlsl">
-      <Filter>Content</Filter>
-    </FxCompile>
   </ItemGroup>
 </Project>

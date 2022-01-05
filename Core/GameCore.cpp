@@ -20,6 +20,8 @@ namespace CoreProject
         m_deviceResources = std::make_shared<DeviceResources>();
         m_deviceResources->RegisterDeviceNotify(this);
 
+        m_timer = std::make_shared<CoreProject::StepTimer>();
+
         int argc = 0;
         LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
         CommandLineArgs::Initialize(argc, argv);
@@ -38,7 +40,7 @@ namespace CoreProject
         m_deviceResources->CreateWindowSizeDependentResources();
         CreateWindowSizeDependentResources();
 
-        GameInput::getInstance().Initialize(window);
+        GameInput::GetInstance().Initialize(window);
 
         // TODO: Change the timer settings if you want something other than the default variable timestep mode.
         // e.g. for 60 FPS fixed timestep update logic, call:
@@ -52,7 +54,7 @@ namespace CoreProject
     {
         m_gameApp->ReleaseDeviceDependentResources();
 
-        GameInput::getInstance().Shutdown();
+        GameInput::GetInstance().Shutdown();
         m_deviceResources->Shutdown();
     }
 
@@ -60,7 +62,7 @@ namespace CoreProject
     // Executes the basic game loop.
     void GameCore::Tick()
     {
-        m_timer.Tick([&]()
+        m_timer->Tick([&]()
             {
                 Update(m_timer);
             });
@@ -69,12 +71,12 @@ namespace CoreProject
     }
 
     // Updates the world.
-    void GameCore::Update(CoreProject::StepTimer const& timer)
+    void GameCore::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
     {
-        GameInput::getInstance().Update(timer);
+        GameInput::GetInstance().Update(stepTimer);
 
         // TODO: Add your game logic here.
-        m_gameApp->Update(timer);
+        m_gameApp->Update(stepTimer);
     }
 #pragma endregion
 
@@ -83,7 +85,7 @@ namespace CoreProject
     void GameCore::Render()
     {
         // Don't try to render anything before the first Update.
-        if (m_timer.GetFrameCount() == 0)
+        if (m_timer->GetFrameCount() == 0)
         {
             return;
         }
@@ -94,8 +96,7 @@ namespace CoreProject
         auto context = m_deviceResources->GetD3DDeviceContext();
 
         // TODO: Add your rendering code here.
-        context;
-        m_gameApp->RenderScene();
+        m_gameApp->RenderScene(context);
 
         m_deviceResources->PIXEndEvent();
 
@@ -144,7 +145,7 @@ namespace CoreProject
 
     void GameCore::OnResuming()
     {
-        m_timer.ResetElapsedTime();
+        m_timer->ResetElapsedTime();
 
         // TODO: Game is being power-resumed (or returning from minimize).
     }

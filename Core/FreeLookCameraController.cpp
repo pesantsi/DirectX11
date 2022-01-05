@@ -13,32 +13,32 @@ namespace CoreProject
         m_camUp = camera.GetUpDirection();
     }
 
-    void FreeLookCameraController::Update(StepTimer const& timer)
+    void FreeLookCameraController::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
     {
-        float speed = 5.0f * (float)timer.GetElapsedSeconds();
+        float speed = 5.0f * (float)stepTimer->GetElapsedSeconds();
 
-        if (GameInput::getInstance().IsPressed(GameInput::DigitalInput::kKey_a))
+        if (GameInput::GetInstance().IsPressed(GameInput::DigitalInput::kKey_a))
         {
             m_moveLeftRight += speed;
         }
 
-        if (GameInput::getInstance().IsPressed(GameInput::DigitalInput::kKey_d))
+        if (GameInput::GetInstance().IsPressed(GameInput::DigitalInput::kKey_d))
         {
             m_moveLeftRight -= speed;
         }
 
-        if (GameInput::getInstance().IsPressed(GameInput::DigitalInput::kKey_w))
+        if (GameInput::GetInstance().IsPressed(GameInput::DigitalInput::kKey_w))
         {
             m_moveBackForward += speed;
         }
 
-        if (GameInput::getInstance().IsPressed(GameInput::DigitalInput::kKey_s))
+        if (GameInput::GetInstance().IsPressed(GameInput::DigitalInput::kKey_s))
         {
             m_moveBackForward -= speed;
         }
 
-        m_camYaw += GameInput::getInstance().GetAnalogInput(GameInput::kAnalogMouseX) * 0.75f;
-        m_camPitch += GameInput::getInstance().GetAnalogInput(GameInput::kAnalogMouseY) * 0.75f;
+        m_camYaw += GameInput::GetInstance().GetAnalogInput(GameInput::kAnalogMouseX) * 0.75f;
+        m_camPitch += GameInput::GetInstance().GetAnalogInput(GameInput::kAnalogMouseY) * 0.75f;
 
         UpdateCamera();
     }

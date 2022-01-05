@@ -13,7 +13,7 @@ namespace CoreProject
         // Assumes worldUp is not the X basis vector
         CameraController(Camera& camera) : m_TargetCamera(camera) {}
         virtual ~CameraController() {}
-        virtual void Update(StepTimer const& timer) = 0;
+        virtual void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer) = 0;
 
     protected:
         Camera& m_TargetCamera;

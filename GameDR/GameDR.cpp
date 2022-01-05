@@ -25,14 +25,14 @@ namespace GameProject
         m_sceneRenderer->ReleaseDeviceDependentResources();
     }
 
-    void GameDR::Update(CoreProject::StepTimer const& timer)
+    void GameDR::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
     {
-        m_sceneRenderer->Update(timer);
+        m_sceneRenderer->Update(stepTimer);
     }
 
-    void GameDR::RenderScene()
+    void GameDR::RenderScene(ID3D11DeviceContext1* deviceContext)
     {
-        m_sceneRenderer->RenderScene();
+        m_sceneRenderer->RenderScene(deviceContext);
     }
 }
 

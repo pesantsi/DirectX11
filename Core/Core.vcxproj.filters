@@ -33,6 +33,12 @@
     <ClInclude Include="Chunk.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Content\ShaderStructures.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="ChuckManager.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -59,6 +65,9 @@
     <ClCompile Include="Chunk.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="ChuckManager.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -73,5 +82,16 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{ac87ab6f-539d-47c8-a4e5-903c26ddd89e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{0bf3c2cc-8199-46b9-85ef-c2e24be7fdea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Content\SamplePixelShader.hlsl">
+      <Filter>Content</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\SampleVertexShader.hlsl">
+      <Filter>Content</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
