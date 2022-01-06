@@ -39,6 +39,7 @@
     <ClInclude Include="ChuckManager.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="GameImGui.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -68,6 +69,7 @@
     <ClCompile Include="ChuckManager.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="GameImGui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

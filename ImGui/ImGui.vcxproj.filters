@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="backends\imgui_impl_win32.h">
+      <Filter>Backends</Filter>
+    </ClInclude>
+    <ClInclude Include="backends\imgui_impl_dx11.h">
+      <Filter>Backends</Filter>
+    </ClInclude>
+    <ClInclude Include="backends\imgui_impl_dx12.h">
+      <Filter>Backends</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="backends\imgui_impl_dx11.cpp">
+      <Filter>Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="backends\imgui_impl_dx12.cpp">
+      <Filter>Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="backends\imgui_impl_win32.cpp">
+      <Filter>Backends</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Backends">
+      <UniqueIdentifier>{c46c16d2-2d18-4cf3-9b91-accbf4f99d82}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

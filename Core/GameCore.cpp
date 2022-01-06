@@ -4,6 +4,7 @@
 
 #include <CommandLineArg.h>
 #include <FileUtility.h>
+#include <GameImGui.h>
 #include <shellapi.h>
 
 namespace CoreProject
@@ -17,7 +18,7 @@ namespace CoreProject
     GameCore::GameCore(IGameApp& app) noexcept(false)
     {
         m_gameApp = &app;
-        m_deviceResources = std::make_shared<DeviceResources>();
+        m_deviceResources = std::make_shared<DeviceResources>(); 
         m_deviceResources->RegisterDeviceNotify(this);
 
         m_timer = std::make_shared<CoreProject::StepTimer>();
@@ -41,6 +42,7 @@ namespace CoreProject
         CreateWindowSizeDependentResources();
 
         GameInput::GetInstance().Initialize(window);
+        GameImGui::GetInstance().Initialize(window, m_deviceResources);
 
         // TODO: Change the timer settings if you want something other than the default variable timestep mode.
         // e.g. for 60 FPS fixed timestep update logic, call:
@@ -55,6 +57,8 @@ namespace CoreProject
         m_gameApp->ReleaseDeviceDependentResources();
 
         GameInput::GetInstance().Shutdown();
+        GameImGui::GetInstance().Shutdown();
+
         m_deviceResources->Shutdown();
     }
 
@@ -74,6 +78,7 @@ namespace CoreProject
     void GameCore::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
     {
         GameInput::GetInstance().Update(stepTimer);
+        GameImGui::GetInstance().Update(stepTimer);
 
         // TODO: Add your game logic here.
         m_gameApp->Update(stepTimer);
@@ -97,6 +102,8 @@ namespace CoreProject
 
         // TODO: Add your rendering code here.
         m_gameApp->RenderScene(context);
+
+        GameImGui::GetInstance().Render();
 
         m_deviceResources->PIXEndEvent();
 
@@ -211,6 +218,7 @@ namespace CoreProject
 
 namespace CoreProject
 {
+
     std::unique_ptr<GameCore> g_gameCore;
 
     LPCWSTR g_szAppName = L"GameDR";
@@ -304,6 +312,9 @@ namespace CoreProject
 
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
+        if (GameImGui::GetInstance().WndProcHandler(hWnd, message, wParam, lParam))
+            return true;
+
         static bool s_in_sizemove = false;
         static bool s_in_suspend = false;
         static bool s_minimized = false;

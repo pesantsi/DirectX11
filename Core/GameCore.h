@@ -62,6 +62,8 @@ namespace CoreProject
         // Rendering loop timer.
         std::shared_ptr<CoreProject::StepTimer> m_timer;
         IGameApp* m_gameApp;
+        bool show_demo_window = true;
+        bool show_another_window = false;
     };
 }
 
