@@ -30,7 +30,22 @@ namespace CoreProject
         // Official rendering pass
         void RenderScene(ID3D11DeviceContext1* deviceContext) override;
 
-    private: // The blocks data
+        inline bool GetIsLoaded() { return m_isLoaded; }
+        inline void SetIsLoaded(bool isLoaded) { m_isLoaded = isLoaded; }
+        void Load();
+        void Unload();
+
+        inline bool GetIsSetup() { return m_isSetup; }
+        inline void SetIsSetup(bool isSetup) { m_isSetup = isSetup; }
+        void Setup();
+
+        void RebuildMesh();
+
+    private:
+        bool m_isLoaded = false;
+        bool m_isSetup = false;
+
+        // The blocks data
         Block*** m_pBlocks;
 
         // Direct3D resources for cube geometry.
@@ -44,5 +59,6 @@ namespace CoreProject
         // System resources for cube geometry.
         CoreProject::ConstantBuffer m_constantBufferData;
         uint32_t m_indexCount;
+
     };
 }

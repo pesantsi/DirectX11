@@ -33,7 +33,7 @@ namespace CoreProject
         m_upDirection = upDirection;
     }
 
-    void Camera::Update(StepTimer const& timer)
+    void Camera::Update(StepTimer const&)
     {
     }
 }

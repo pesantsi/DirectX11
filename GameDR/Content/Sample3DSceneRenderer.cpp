@@ -4,11 +4,13 @@
 #include <Content/Sample3DSceneRenderer.h>
 #include <FreeLookCameraController.h>
 #include <Block.h>
+#include <Chunk.h>
 
 using namespace GameProject;
 
 using namespace DirectX;
 using namespace Windows::Foundation;
+using namespace CoreProject;
 
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
 Sample3DSceneRenderer::Sample3DSceneRenderer() :
@@ -260,11 +262,11 @@ void Sample3DSceneRenderer::RenderScene(ID3D11DeviceContext1* deviceContext)
         return;
     }
 
-    for (float x = 0; x < 32; x++)
+    for (float x = 0; x < Chunk::CHUNK_SIZE; x++)
     {
-        for (float y = 0; y < 32; y++)
+        for (float y = 0; y < Chunk::CHUNK_SIZE; y++)
         {
-            for (float z = 0; z < 32; z++)
+            for (float z = 0; z < Chunk::CHUNK_SIZE; z++)
             {
                 XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixTranslation(x, y, z)));
 

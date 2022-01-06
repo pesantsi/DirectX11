@@ -217,7 +217,7 @@ namespace CoreProject
 
     LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-    int RunApplication(IGameApp& app, const wchar_t* className, HINSTANCE hInstance, int nCmdShow)
+    int RunApplication(IGameApp& app, const wchar_t*, HINSTANCE hInstance, int)
     {
 //         UNREFERENCED_PARAMETER(hPrevInstance);
 //         UNREFERENCED_PARAMETER(lpCmdLine);

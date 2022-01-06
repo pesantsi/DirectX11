@@ -7,6 +7,7 @@ namespace CoreProject
 {
     FreeLookCameraController::FreeLookCameraController(Camera& camera)
         : CameraController(camera)
+        , m_camRotationMatrix()
     {
         m_camPosition = camera.GetEyePosition();
         m_camTarget = camera.GetFocusPosition();
@@ -37,8 +38,8 @@ namespace CoreProject
             m_moveBackForward -= speed;
         }
 
-        m_camYaw += GameInput::GetInstance().GetAnalogInput(GameInput::kAnalogMouseX) * 0.75f;
-        m_camPitch += GameInput::GetInstance().GetAnalogInput(GameInput::kAnalogMouseY) * 0.75f;
+        m_camYaw += GameInput::GetInstance().GetAnalogInput(GameInput::kAnalogMouseX) * 0.50f;
+        m_camPitch += GameInput::GetInstance().GetAnalogInput(GameInput::kAnalogMouseY) * 0.50f;
 
         UpdateCamera();
     }

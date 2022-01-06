@@ -5,19 +5,10 @@
 
 namespace CoreProject
 {
-    Chunk::Chunk() : 
-        m_indexCount(0)
+    Chunk::Chunk() :
+        m_indexCount(0),
+        m_constantBufferData()
     {
-        // Create the blocks
-        m_pBlocks = new Block * *[CHUNK_SIZE];
-        for (int i = 0; i < CHUNK_SIZE; i++)
-        {
-            m_pBlocks[i] = new Block * [CHUNK_SIZE];
-            for (int j = 0; j < CHUNK_SIZE; j++)
-            {
-                m_pBlocks[i][j] = new Block[CHUNK_SIZE];
-            }
-        }
     }
 
     Chunk::~Chunk()
@@ -165,7 +156,7 @@ namespace CoreProject
 
     // The update method will be invoked once per frame.  Both state updating and scene
     // rendering should be handled by this method.
-    void Chunk::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
+    void Chunk::Update(const std::shared_ptr<CoreProject::StepTimer>&)
     {
 
     }
@@ -213,5 +204,34 @@ namespace CoreProject
                 }
             }
         }
+    }
+
+    void Chunk::Load()
+    {
+        // Create the blocks
+        m_pBlocks = new Block * *[CHUNK_SIZE];
+        for (int i = 0; i < CHUNK_SIZE; i++)
+        {
+            m_pBlocks[i] = new Block * [CHUNK_SIZE];
+            for (int j = 0; j < CHUNK_SIZE; j++)
+            {
+                m_pBlocks[i][j] = new Block[CHUNK_SIZE];
+            }
+        }
+    }
+
+    void Chunk::Unload()
+    {
+
+    }
+
+    void Chunk::Setup()
+    {
+
+    }
+
+    void Chunk::RebuildMesh()
+    {
+
     }
 }
