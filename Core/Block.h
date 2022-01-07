@@ -31,7 +31,7 @@ namespace CoreProject
         // first triangle of this mesh.
         static const unsigned short CubeIndices[36];
 
-        static const unsigned short BLOCK_RENDER_SIZE = 1;
+        static const float BLOCK_RENDER_SIZE;
 
         Block();
         ~Block();

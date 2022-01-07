@@ -43,6 +43,8 @@ namespace CoreProject
         1, 7, 5,
     };
 
+    const float Block::BLOCK_RENDER_SIZE = 1;
+
     Block::Block()
       : m_isActive(true),
         m_blockType(BlockType::BlockType_Default)

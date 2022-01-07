@@ -79,7 +79,7 @@ namespace CoreProject
 
     void GameImGui::Shutdown()
     {
-        // Cleanup
+        // Cleanup 
         ImGui_ImplDX11_Shutdown();
         ImGui_ImplWin32_Shutdown();
         ImGui::DestroyContext();
