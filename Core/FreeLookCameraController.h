@@ -4,13 +4,15 @@
 
 #include <CameraController.h>
 
+using namespace CoreProject_API;
+
 namespace CoreProject
 {
     class FreeLookCameraController : CameraController
     {
     public:
         FreeLookCameraController(Camera& camera);
-        void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer) override;
+        void Update(const std::shared_ptr<IStepTimer>& stepTimer) override;
 
         void UpdateCamera();
     private:

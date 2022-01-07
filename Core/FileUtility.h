@@ -3,6 +3,7 @@
 #include <pch.h>
 
 #include <fstream>
+#include <vector>
 
 namespace CoreProject
 {

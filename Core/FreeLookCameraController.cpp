@@ -14,7 +14,7 @@ namespace CoreProject
         m_camUp = camera.GetUpDirection();
     }
 
-    void FreeLookCameraController::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
+    void FreeLookCameraController::Update(const std::shared_ptr<IStepTimer>& stepTimer)
     {
         float speed = 5.0f * (float)stepTimer->GetElapsedSeconds();
 

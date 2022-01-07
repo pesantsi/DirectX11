@@ -51,7 +51,7 @@ namespace GameProject
 
     }
 
-    void GameDR::CreateDeviceDependentResources(const std::shared_ptr<CoreProject::DeviceResources>& deviceResources)
+    void GameDR::CreateDeviceDependentResources(const std::shared_ptr<IDeviceResources>& deviceResources)
     {
         m_sceneRenderer->CreateDeviceDependentResources(deviceResources);
     }
@@ -66,7 +66,7 @@ namespace GameProject
         m_sceneRenderer->ReleaseDeviceDependentResources();
     }
 
-    void GameDR::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
+    void GameDR::Update(const std::shared_ptr<IStepTimer>& stepTimer)
     {
         m_sceneRenderer->Update(stepTimer);
     }

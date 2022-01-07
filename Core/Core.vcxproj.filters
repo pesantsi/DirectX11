@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="IGameApp.h" />
     <ClInclude Include="GameCore.h" />
     <ClInclude Include="StepTimer.h">
       <Filter>Common</Filter>
@@ -13,7 +12,6 @@
     <ClInclude Include="FileUtility.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="IGameObject.h" />
     <ClInclude Include="CommandLineArg.h">
       <Filter>Helpers</Filter>
     </ClInclude>
@@ -36,7 +34,7 @@
     <ClInclude Include="Content\ShaderStructures.h">
       <Filter>Content</Filter>
     </ClInclude>
-    <ClInclude Include="ChuckManager.h">
+    <ClInclude Include="ChunkManager.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GameImGui.h" />
@@ -66,7 +64,7 @@
     <ClCompile Include="Chunk.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="ChuckManager.cpp">
+    <ClCompile Include="ChunkManager.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GameImGui.cpp" />

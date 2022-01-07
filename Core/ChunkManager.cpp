@@ -1,9 +1,9 @@
 #include "pch.h"
-#include "ChuckManager.h"
+#include "ChunkManager.h"
 
 namespace CoreProject
 {
-    void ChuckManager::Update(const std::shared_ptr<IStepTimer >&)
+    void ChunkManager::Update(const std::shared_ptr<IStepTimer >&)
     {
         UpdateAsyncChunker();
         UpdateLoadList();
@@ -11,23 +11,23 @@ namespace CoreProject
         UpdateRebuildList();
         UpdateFlagsList();
         UpdateUnloadList();
-        UpdateVisibilityList(cameraPosition);
-        if (m_cameraPosition != cameraPosition || m_cameraView != cameraView) {
-            UpdateRenderList();
-        }
-        m_cameraPosition = cameraPosition;
-        m_cameraView = cameraView;
+//         UpdateVisibilityList(cameraPosition);
+//         if (m_cameraPosition != cameraPosition || m_cameraView != cameraView) {
+//             UpdateRenderList();
+//         }
+//         m_cameraPosition = cameraPosition;
+//         m_cameraView = cameraView;
     }
 
-    void ChuckManager::RenderScene(ID3D11DeviceContext1*)
+    void ChunkManager::RenderScene(ID3D11DeviceContext1*)
     {
     }
 
-    void ChuckManager::UpdateAsyncChunker()
+    void ChunkManager::UpdateAsyncChunker()
     {
     }
 
-    void ChuckManager::UpdateLoadList()
+    void ChunkManager::UpdateLoadList()
     {
         int lNumOfChunksLoaded = 0;
         ChunkList::iterator iterator;
@@ -50,7 +50,7 @@ namespace CoreProject
         m_vpChunkLoadList.clear();
     }
 
-    void ChuckManager::UpdateSetupList()
+    void ChunkManager::UpdateSetupList()
     {
         ChunkList::iterator iterator;
         for (iterator = m_vpChunkSetupList.begin(); iterator != m_vpChunkSetupList.end(); ++iterator)
@@ -70,7 +70,7 @@ namespace CoreProject
         m_vpChunkSetupList.clear();
     }
 
-    void ChuckManager::UpdateRebuildList()
+    void ChunkManager::UpdateRebuildList()
     {
         // Rebuild any chunks that are in the rebuild chunk list     
         ChunkList::iterator iterator;
@@ -118,11 +118,11 @@ namespace CoreProject
         m_vpChunkRebuildList.clear();
     }
 
-    void ChuckManager::UpdateFlagsList()
+    void ChunkManager::UpdateFlagsList()
     {
     }
 
-    void ChuckManager::UpdateUnloadList()
+    void ChunkManager::UpdateUnloadList()
     {
         ChunkList::iterator iterator;
         for (iterator = m_vpChunkUnloadList.begin(); iterator != m_vpChunkUnloadList.end(); ++iterator)
@@ -138,11 +138,11 @@ namespace CoreProject
         m_vpChunkUnloadList.clear();
     }
 
-    void ChuckManager::UpdateVisibilityList()
+    void ChunkManager::UpdateVisibilityList()
     {
     }
 
-    void ChuckManager::UpdateRenderList()
+    void ChunkManager::UpdateRenderList()
     {
         // Clear the render list each frame BEFORE we do our tests to see what chunks should be rendered     
         m_vpChunkRenderList.clear();

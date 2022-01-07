@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "..\ImGui\ImGui.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PerlinLandscape", "..\PerlinLandscape\PerlinLandscape.vcxproj", "{276E09F9-4145-4413-9C8F-E4CD3F6494B9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreProject_API", "..\CoreProject_API\CoreProject_API.vcxproj", "{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{276E09F9-4145-4413-9C8F-E4CD3F6494B9}.Release|x64.Build.0 = Release|x64
 		{276E09F9-4145-4413-9C8F-E4CD3F6494B9}.Release|x86.ActiveCfg = Release|Win32
 		{276E09F9-4145-4413-9C8F-E4CD3F6494B9}.Release|x86.Build.0 = Release|Win32
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Debug|x64.ActiveCfg = Debug|x64
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Debug|x64.Build.0 = Debug|x64
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Debug|x86.ActiveCfg = Debug|Win32
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Debug|x86.Build.0 = Debug|Win32
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Release|x64.ActiveCfg = Release|x64
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Release|x64.Build.0 = Release|x64
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Release|x86.ActiveCfg = Release|Win32
+		{F3B74B31-26B9-4F2C-B145-C4BE1FD0F445}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

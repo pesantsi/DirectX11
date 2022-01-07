@@ -4,6 +4,8 @@
 #include <IGameObject.h>
 #include <StepTimer.h>
 
+using namespace CoreProject_API;
+
 namespace CoreProject
 {
     class GameInput : IUpdatableObject
@@ -178,7 +180,7 @@ namespace CoreProject
         void operator=(GameInput const&) = delete;
 
         void Initialize(HWND hwnd);
-        void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer) override;
+        void Update(const std::shared_ptr<IStepTimer>& stepTimer) override;
         void Shutdown();
 
         bool IsPressed(DigitalInput di)

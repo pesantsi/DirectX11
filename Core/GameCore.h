@@ -6,12 +6,13 @@
 #include <GameInput.h>
 #include <IGameApp.h>
 #include <StepTimer.h>
+#include <ChuckManager.h>
 
 namespace CoreProject
 {
     // A basic game implementation that creates a D3D11 device and
     // provides a game loop.
-    class GameCore final : public CoreProject::IDeviceNotify
+    class GameCore final : public IDeviceNotify
     {
     public:
 
@@ -48,7 +49,7 @@ namespace CoreProject
 
     private:
 
-        void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer);
+        void Update(const std::shared_ptr<StepTimer>& stepTimer);
         void Render();
 
         void Clear();
@@ -56,14 +57,15 @@ namespace CoreProject
         void CreateDeviceDependentResources();
         void CreateWindowSizeDependentResources();
 
+        std::shared_ptr<ChuckManager> m_chuckManager;
+
         // Device resources.
-        std::shared_ptr<CoreProject::DeviceResources> m_deviceResources;
+        std::shared_ptr<DeviceResources> m_deviceResources;
 
         // Rendering loop timer.
         std::shared_ptr<CoreProject::StepTimer> m_timer;
+
         IGameApp* m_gameApp;
-        bool show_demo_window = true;
-        bool show_another_window = false;
     };
 }
 

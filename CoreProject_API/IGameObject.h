@@ -1,11 +1,11 @@
 #pragma once
 
-#include <pch.h>
+#include <IDeviceResources.h>
+#include <IStepTimer.h>
+#include <Windows.h>
+#include <memory>
 
-#include <DeviceResources.h>
-#include <StepTimer.h>
-
-namespace CoreProject
+namespace CoreProject_API
 {
     interface IDeviceDependentObject
     {
@@ -13,7 +13,7 @@ namespace CoreProject
         // This function can be used to initialize application state and will run after essential
         // hardware resources are allocated.  Some state that does not depend on these resources
         // should still be initialized in the constructor such as pointers and flags.
-        virtual void CreateDeviceDependentResources(const std::shared_ptr<CoreProject::DeviceResources>& deviceResources) = 0;
+        virtual void CreateDeviceDependentResources(const std::shared_ptr<IDeviceResources>& deviceResources) = 0;
         virtual void CreateWindowSizeDependentResources() = 0;
         virtual void ReleaseDeviceDependentResources() = 0;
     };
@@ -23,7 +23,7 @@ namespace CoreProject
     public:
         // The update method will be invoked once per frame. Both state updating and scene
         // rendering should be handled by this method.
-        virtual void Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer) = 0;
+        virtual void Update(const std::shared_ptr<IStepTimer>& stepTimer) = 0;
     };
 
     interface IRenderableObject
@@ -36,7 +36,7 @@ namespace CoreProject
         virtual void RenderUI(class GraphicsContext&) {};
     };
 
-    interface IGameObject : IDeviceDependentObject, IUpdatableObject, IRenderableObject
+    interface IGameObject : public IDeviceDependentObject, public IUpdatableObject, public IRenderableObject
     {
     };
 }

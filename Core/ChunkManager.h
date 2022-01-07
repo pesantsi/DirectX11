@@ -7,13 +7,13 @@ namespace CoreProject
 {
     typedef std::vector<std::shared_ptr<Chunk>> ChunkList;
 
-    class ChuckManager : IUpdatableObject
+    class ChunkManager : IUpdatableObject, IRenderableObject
     {
     public:
         static const int ASYNC_NUM_CHUNKS_PER_FRAME = 10;
 
-        // Inherited via IUpdatableObject
         void Update(const std::shared_ptr<IStepTimer>& stepTimer) override;
+        void RenderScene(ID3D11DeviceContext1*) override;
 
     private:
         void UpdateAsyncChunker();

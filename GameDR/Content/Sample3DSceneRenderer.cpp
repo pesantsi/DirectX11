@@ -12,6 +12,46 @@ using namespace DirectX;
 using namespace Windows::Foundation;
 using namespace CoreProject;
 
+// Once both shaders are loaded, create the mesh.
+    // Load mesh vertices. Each vertex has a position and a color.
+const VertexPositionColor Sample3DSceneRenderer::CubeVertices[] =
+{
+    {XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT3(0.0f, 0.0f, 0.0f)},
+    {XMFLOAT3(-0.5f, -0.5f,  0.5f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
+    {XMFLOAT3(-0.5f,  0.5f, -0.5f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
+    {XMFLOAT3(-0.5f,  0.5f,  0.5f), XMFLOAT3(0.0f, 1.0f, 1.0f)},
+    {XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
+    {XMFLOAT3(0.5f, -0.5f,  0.5f), XMFLOAT3(1.0f, 0.0f, 1.0f)},
+    {XMFLOAT3(0.5f,  0.5f, -0.5f), XMFLOAT3(1.0f, 1.0f, 0.0f)},
+    {XMFLOAT3(0.5f,  0.5f,  0.5f), XMFLOAT3(1.0f, 1.0f, 1.0f)},
+};
+
+// Each trio of indices represents
+// a triangle to be rendered on the screen.
+// For example: 0,2,1 means that the vertices with indexes
+// 0, 2 and 1 from the vertex buffer compose the 
+// first triangle of this mesh.
+const unsigned short Sample3DSceneRenderer::CubeIndices[] =
+{
+    0, 2, 1, // -x
+    1, 2, 3,
+
+    4, 5, 6, // +x
+    5, 7, 6,
+
+    0, 1, 5, // -y
+    0, 5, 4,
+
+    2, 6, 7, // +y
+    2, 7, 3,
+
+    0, 4, 6, // -z
+    0, 6, 2,
+
+    1, 3, 7, // +z
+    1, 7, 5,
+};
+
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
 Sample3DSceneRenderer::Sample3DSceneRenderer() :
     m_loadingComplete(false),
@@ -26,7 +66,7 @@ Sample3DSceneRenderer::Sample3DSceneRenderer() :
 
 }
 
-void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr<CoreProject::DeviceResources>& deviceResources)
+void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr<IDeviceResources>& deviceResources)
 {
     m_deviceResources = deviceResources;
 
@@ -77,10 +117,10 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr
     // Once both shaders are loaded, create the mesh.
     // Load mesh vertices. Each vertex has a position and a color.
     D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
-    vertexBufferData.pSysMem = CoreProject::Block::CubeVertices;
+    vertexBufferData.pSysMem = CubeVertices;
     vertexBufferData.SysMemPitch = 0;
     vertexBufferData.SysMemSlicePitch = 0;
-    CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(CoreProject::Block::CubeVertices), D3D11_BIND_VERTEX_BUFFER);
+    CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(CubeVertices), D3D11_BIND_VERTEX_BUFFER);
     FAILED(
         m_deviceResources->GetD3DDevice()->CreateBuffer(
             &vertexBufferDesc,
@@ -88,13 +128,13 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources(const std::shared_ptr
             &m_vertexBuffer
         ));
 
-    m_indexCount = ARRAYSIZE(CoreProject::Block::CubeIndices);
+    m_indexCount = ARRAYSIZE(CubeIndices);
 
     D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
-    indexBufferData.pSysMem = CoreProject::Block::CubeIndices;
+    indexBufferData.pSysMem = CubeIndices;
     indexBufferData.SysMemPitch = 0;
     indexBufferData.SysMemSlicePitch = 0;
-    CD3D11_BUFFER_DESC indexBufferDesc(sizeof(CoreProject::Block::CubeIndices), D3D11_BIND_INDEX_BUFFER);
+    CD3D11_BUFFER_DESC indexBufferDesc(sizeof(CubeIndices), D3D11_BIND_INDEX_BUFFER);
     FAILED(
         m_deviceResources->GetD3DDevice()->CreateBuffer(
             &indexBufferDesc,
@@ -211,7 +251,7 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 }
 
 // Called once per frame, rotates the cube and calculates the model and view matrices.
-void Sample3DSceneRenderer::Update(const std::shared_ptr<CoreProject::StepTimer>& stepTimer)
+void Sample3DSceneRenderer::Update(const std::shared_ptr<IStepTimer>& stepTimer)
 { 
     //{
     //    // Convert degrees to radians, then convert seconds to rotation angle

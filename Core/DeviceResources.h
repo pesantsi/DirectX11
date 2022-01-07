@@ -6,6 +6,10 @@
 
 #include <pch.h>
 
+#include <..\CoreProject_API\IDeviceResources.h>
+
+using namespace CoreProject_API;
+
 namespace CoreProject
 {
     // Provides an interface for an application that owns DeviceResources to be notified of the device being lost or created.
@@ -19,7 +23,7 @@ namespace CoreProject
     };
 
     // Controls all the DirectX device resources.
-    class DeviceResources
+    class DeviceResources : public IDeviceResources
     {
     public:
         static const unsigned int c_FlipPresent     = 0x1;
@@ -49,25 +53,25 @@ namespace CoreProject
         void Shutdown();
 
         // Device Accessors.
-        RECT GetOutputSize() const noexcept { return m_outputSize; }
+        RECT GetOutputSize() const noexcept override { return m_outputSize; }
 
         // Direct3D Accessors.
-        ID3D11Device1*          GetD3DDevice() const noexcept           { return m_d3dDevice.Get(); }
-        ID3D11DeviceContext1*   GetD3DDeviceContext() const noexcept    { return m_d3dContext.Get(); }
-        IDXGISwapChain1*        GetSwapChain() const noexcept           { return m_swapChain.Get(); }
-        IDXGIFactory2*          GetDXGIFactory() const noexcept         { return m_dxgiFactory.Get(); }
-        HWND                    GetWindow() const noexcept              { return m_window; }
-        D3D_FEATURE_LEVEL       GetDeviceFeatureLevel() const noexcept  { return m_d3dFeatureLevel; }
-        ID3D11Texture2D*        GetRenderTarget() const noexcept        { return m_renderTarget.Get(); }
-        ID3D11Texture2D*        GetDepthStencil() const noexcept        { return m_depthStencil.Get(); }
-        ID3D11RenderTargetView*	GetRenderTargetView() const noexcept    { return m_d3dRenderTargetView.Get(); }
-        ID3D11DepthStencilView* GetDepthStencilView() const noexcept    { return m_d3dDepthStencilView.Get(); }
-        DXGI_FORMAT             GetBackBufferFormat() const noexcept    { return m_backBufferFormat; }
-        DXGI_FORMAT             GetDepthBufferFormat() const noexcept   { return m_depthBufferFormat; }
-        D3D11_VIEWPORT          GetScreenViewport() const noexcept      { return m_screenViewport; }
-        UINT                    GetBackBufferCount() const noexcept     { return m_backBufferCount; }
-        DXGI_COLOR_SPACE_TYPE   GetColorSpace() const noexcept          { return m_colorSpace; }
-        unsigned int            GetDeviceOptions() const noexcept       { return m_options; }
+        ID3D11Device1*          GetD3DDevice() const noexcept override        { return m_d3dDevice.Get(); }
+        ID3D11DeviceContext1*   GetD3DDeviceContext() const noexcept override { return m_d3dContext.Get(); }
+        IDXGISwapChain1*        GetSwapChain() const noexcept                 { return m_swapChain.Get(); }
+        IDXGIFactory2*          GetDXGIFactory() const noexcept               { return m_dxgiFactory.Get(); }
+        HWND                    GetWindow() const noexcept                    { return m_window; }
+        D3D_FEATURE_LEVEL       GetDeviceFeatureLevel() const noexcept        { return m_d3dFeatureLevel; }
+        ID3D11Texture2D*        GetRenderTarget() const noexcept              { return m_renderTarget.Get(); }
+        ID3D11Texture2D*        GetDepthStencil() const noexcept              { return m_depthStencil.Get(); }
+        ID3D11RenderTargetView*	GetRenderTargetView() const noexcept          { return m_d3dRenderTargetView.Get(); }
+        ID3D11DepthStencilView* GetDepthStencilView() const noexcept          { return m_d3dDepthStencilView.Get(); }
+        DXGI_FORMAT             GetBackBufferFormat() const noexcept          { return m_backBufferFormat; }
+        DXGI_FORMAT             GetDepthBufferFormat() const noexcept         { return m_depthBufferFormat; }
+        D3D11_VIEWPORT          GetScreenViewport() const noexcept            { return m_screenViewport; }
+        UINT                    GetBackBufferCount() const noexcept           { return m_backBufferCount; }
+        DXGI_COLOR_SPACE_TYPE   GetColorSpace() const noexcept                { return m_colorSpace; }
+        unsigned int            GetDeviceOptions() const noexcept             { return m_options; }
 
         // Performance events
         void PIXBeginEvent(_In_z_ const wchar_t* name)

@@ -20,7 +20,7 @@ namespace CoreProject
         ThrowIfFailed(m_directInputMouse->SetCooperativeLevel(nullptr, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)); //Ubisoft
     }
 
-    void GameInput::Update(const std::shared_ptr<CoreProject::StepTimer>&)
+    void GameInput::Update(const std::shared_ptr<IStepTimer>&)
     {
         HWND foreground = GetForegroundWindow();
         bool visible = IsWindowVisible(foreground) != 0;

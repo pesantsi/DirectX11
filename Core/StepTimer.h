@@ -6,15 +6,13 @@
 
 #include <pch.h>
 
-#include <cmath>
-#include <cstdint>
-#include <exception>
-
+#include <IStepTimer.h>
+using namespace CoreProject_API;
 
 namespace CoreProject
 {
     // Helper class for animation and simulation timing.
-    class StepTimer
+    class StepTimer : public IStepTimer
     {
     public:
         StepTimer() noexcept(false) :

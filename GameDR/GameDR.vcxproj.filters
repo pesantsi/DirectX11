@@ -10,14 +10,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="GameDR.h" />
     <ClInclude Include="Content\Sample3DSceneRenderer.h">
       <Filter>Content</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="GameDR.cpp" />
     <ClCompile Include="Content\Sample3DSceneRenderer.cpp">
       <Filter>Content</Filter>
