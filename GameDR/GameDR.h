@@ -3,8 +3,10 @@
 #include <Content/Sample3DSceneRenderer.h>
 #include <GameCore.h>
 #include <IGameApp.h>
+#include <PerlinNoiseChunkFactory.h>
 
 using namespace CoreProject_API;
+using namespace PerlinLandscape;
 
 namespace GameProject
 {
@@ -13,6 +15,8 @@ namespace GameProject
     public:
 
         GameDR();
+
+        inline bool GetIsDone() { return false; }
 
         // This function can be used to initialize application state and will run after essential
         // hardware resources are allocated.  Some state that does not depend on these resources
@@ -28,18 +32,11 @@ namespace GameProject
         // Official rendering pass
         void RenderScene(ID3D11DeviceContext1* deviceContext) override;
 
-        inline bool IsDone() { return false; }
+        // Inherited via IGameApp
+        const std::shared_ptr<IWorldChunkFactory>& GetWorldChunkFactory() override;
     private:
 
         std::unique_ptr<Sample3DSceneRenderer> m_sceneRenderer;
-
-        //Camera m_Camera;
-        //unique_ptr<CameraController> m_CameraController;
-
-        //D3D12_VIEWPORT m_MainViewport;
-        //D3D12_RECT m_MainScissor;
-
-        ////ModelInstance m_ModelInst;
-        //ShadowCamera m_SunShadowCamera;
+        std::shared_ptr<IWorldChunkFactory> m_chunkFactory;
     };
 }

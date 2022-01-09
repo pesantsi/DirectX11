@@ -20,11 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PerlinNoise.h" />
+    <ClInclude Include="PerlinNoiseChunkFactory.h" />
     <ClInclude Include="PPM.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="PerlinNoiseChunkFactory.cpp" />
     <ClCompile Include="PPM.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoreProject_API\CoreProject_API.vcxproj">
+      <Project>{f3b74b31-26b9-4f2c-b145-c4be1fd0f445}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -132,6 +139,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\CoreProject_API</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -17,19 +17,22 @@ namespace CoreProject
         ~Chunk();
 
         inline bool GetIsLoaded() { return m_isLoaded; }
-        void Load() override;
-        void Unload() override;
+        void Load();
+        void Unload();
 
         inline bool GetIsSetup() { return m_isSetup; }
-        void Setup() override;
+        void Setup();
 
-        void RebuildMesh() override;
+        void RebuildMesh();
 
     private:
+
+        static unsigned int GetBlockIndex(unsigned int x, unsigned int y, unsigned int z) { return z * IChunk::CHUNK_SIZE * IChunk::CHUNK_SIZE + y * IChunk::CHUNK_SIZE + x; }
+
         bool m_isLoaded = false;
         bool m_isSetup = false;
 
         // The blocks data
-        Block*** m_pBlocks;
+        std::vector<std::shared_ptr<Block>> m_pBlocks;
     };
 }

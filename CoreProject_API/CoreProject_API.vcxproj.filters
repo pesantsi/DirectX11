@@ -5,8 +5,13 @@
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IStepTimer.h" />
     <ClInclude Include="IDeviceResources.h" />
-    <ClInclude Include="IChunkFactory.h" />
     <ClInclude Include="IChunk.h" />
     <ClInclude Include="IBlock.h" />
+    <ClInclude Include="WorldSize.h" />
+    <ClInclude Include="IWorldChunkFactory.h" />
+    <ClInclude Include="CoreProject_API.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CoreProject_API.cpp" />
   </ItemGroup>
 </Project>

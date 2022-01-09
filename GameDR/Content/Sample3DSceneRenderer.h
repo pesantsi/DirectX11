@@ -5,7 +5,6 @@
 #include <Content/ShaderStructures.h>
 #include <DeviceResources.h>
 #include <IGameObject.h>
-#include <StepTimer.h>
 
 using namespace CoreProject_API;
 using namespace CoreProject;

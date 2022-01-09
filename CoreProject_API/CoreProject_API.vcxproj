@@ -19,13 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoreProject_API.h" />
     <ClInclude Include="IBlock.h" />
     <ClInclude Include="IChunk.h" />
-    <ClInclude Include="IChunkFactory.h" />
     <ClInclude Include="IDeviceResources.h" />
     <ClInclude Include="IGameApp.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IStepTimer.h" />
+    <ClInclude Include="IWorldChunkFactory.h" />
+    <ClInclude Include="WorldSize.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CoreProject_API.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -133,6 +138,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\CoreProject_API;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

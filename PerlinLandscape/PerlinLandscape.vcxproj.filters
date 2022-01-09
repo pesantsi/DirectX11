@@ -3,9 +3,11 @@
   <ItemGroup>
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="PPM.h" />
+    <ClInclude Include="PerlinNoiseChunkFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PPM.cpp" />
+    <ClCompile Include="PerlinNoiseChunkFactory.cpp" />
   </ItemGroup>
 </Project>

@@ -21,7 +21,9 @@ namespace CoreProject
         m_deviceResources = std::make_shared<DeviceResources>(); 
         m_deviceResources->RegisterDeviceNotify(this);
 
-        m_timer = std::make_shared<CoreProject::StepTimer>();
+        m_timer = std::make_shared<StepTimer>();
+
+        m_chunkManager = std::make_shared<ChunkManager>(m_gameApp->GetWorldChunkFactory());
 
         int argc = 0;
         LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
@@ -79,6 +81,8 @@ namespace CoreProject
     {
         GameInput::GetInstance().Update(stepTimer);
         GameImGui::GetInstance().Update(stepTimer);
+
+        m_chunkManager->Update(stepTimer);
 
         // TODO: Add your game logic here.
         m_gameApp->Update(stepTimer);

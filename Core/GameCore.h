@@ -6,7 +6,7 @@
 #include <GameInput.h>
 #include <IGameApp.h>
 #include <StepTimer.h>
-#include <ChuckManager.h>
+#include <ChunkManager.h>
 
 namespace CoreProject
 {
@@ -57,7 +57,7 @@ namespace CoreProject
         void CreateDeviceDependentResources();
         void CreateWindowSizeDependentResources();
 
-        std::shared_ptr<ChuckManager> m_chuckManager;
+        std::shared_ptr<ChunkManager> m_chunkManager;
 
         // Device resources.
         std::shared_ptr<DeviceResources> m_deviceResources;

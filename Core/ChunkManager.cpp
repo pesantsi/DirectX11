@@ -3,7 +3,12 @@
 
 namespace CoreProject
 {
-    void ChunkManager::Update(const std::shared_ptr<IStepTimer >&)
+    ChunkManager::ChunkManager(const std::shared_ptr<IWorldChunkFactory>& worldChunkFactory)
+    {
+        m_worldChunkFactory = worldChunkFactory;
+    }
+
+    void ChunkManager::Update(const std::shared_ptr<IStepTimer>&)
     {
         UpdateAsyncChunker();
         UpdateLoadList();
@@ -25,6 +30,7 @@ namespace CoreProject
 
     void ChunkManager::UpdateAsyncChunker()
     {
+
     }
 
     void ChunkManager::UpdateLoadList()
